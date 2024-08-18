@@ -1,0 +1,57 @@
+name: projeto-tdd-git
+
+services:
+  server-app:
+    build:
+      context: ./
+      dockerfile: dockerfile
+
+    ports:
+      - 3000:3000
+
+    volumes:
+      - .:/app
+
+    env_file:
+      - ./.env
+
+    networks:
+      - bridge-network
+
+  database:
+    image: postgres:16
+
+    ports:
+      - 5432:5432
+
+    volumes:
+      - ./docker/postgres/data:/var/lib/postgresql/data
+
+    environment:
+      POSTGRES_HOST_AUTH_METHOD: trust
+
+    networks:
+      - bridge-network
+
+  pgadmin:
+    image: dpage/pgadmin4:latest
+
+    ports:
+      - 8080:8080
+
+    volumes:
+      - ./docker/pgadmin:/var/lib/pgadmin
+
+    environment:
+      PGADMIN_DEFAULT_EMAIL: p@p.com
+      PGADMIN_DEFAULT_PASSWORD: 123
+      PGADMIN_CONFIG_SERVER_MODE: "False"
+      PGADMIN_CONFIG_MASTER_PASSWORD_REQUIRED: "False"
+      PGADMIN_LISTEN_PORT: 8080
+
+    networks:
+      - bridge-network
+
+networks:
+  bridge-network:
+    driver: bridge
