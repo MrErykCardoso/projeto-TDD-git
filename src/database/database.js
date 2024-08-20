@@ -17,4 +17,4 @@ const client = new Client(dbConfig);
 //@ts-ignore
 const pool = new Pool(dbConfig);
 
-export default { client, pool };
+export { client, pool };

@@ -134,5 +134,3 @@ dist
 .yarn/install-state.gz
 .pnp.*
 docker/pgadmin/pgadmin4.db
-docker/pgadmin/pgadmin4.db
-docker/pgadmin/pgadmin4.db
